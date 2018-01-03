@@ -74,6 +74,13 @@ We also experiment its properties during stochastic gradient descent method, in 
 \subsection{Floating point arithmetic}
 \begin{itemize}
   \item Floating point arithmetic can be seen as a way for a physical computer to deal with theoretically infinitely many digits real numbers, given their finite physical memory capacity. To accomplish that, a real number is necessarily rounded to the closest floating point value (hence loosing part of the significant digits of the real number).
+  \item Let's examine the basis of floating point numbers representation. \\ As Goldberg\cite{Goldberg1991} describes it, a floating point number of precision $\mathit{p}$, exponent $\mathit{e}$ and in base $\beta$ can be represented as such : $ \pm \mathit{d.dd\cdots d \times \beta^{e}} $. Here, $\mathit{d.dd\cdots d}$ is the significand of the floating point number, each $\mathit{d}$ being a distinct digit in base $\beta$; in other words \[ \forall \mathit{t} \in \left\lbrace 0,1\cdots p-1 \right\rbrace, \; 0 < \mathit{d}_{t} < \beta. \]
+  \item The represented number is
+  \begin{equation}
+  %\[ 
+  \pm \left( \mathit{d}_{0} + \mathit{d}_{1} \beta^{-1} + ... + \mathit{d}_{p-1} \beta^{- \left( \mathit{p} - 1 \right)} \right) \beta^{e}.  
+  %\]
+  \end{equation}
   \item The vast litterature\footnote{For the reader who'd like to dive deeper into the concepts stated here, Goldberg's\cite{Goldberg1991} tutorial form a great starting point.} 
   about the different kind of errors and their consequences tells us a lot about the gravity of these matters. 
   \item Cancellation errors arise when two close floating point number are substracted to one another, resulting a loss of significant digits. \emph{example} 
@@ -82,7 +89,7 @@ We also experiment its properties during stochastic gradient descent method, in 
   \item More recent approaches study the interesting properties of the application of Monte Carlo techniques to floating point arithmetic\cite{Parker1997}. MCA give us the ability to study the distribution of errors, through statistical analysis. It provides insightful quantification about roundoff errors and program instability. It also circumvent some anomalies of floating point arithmetic, as for instance the non associative summation (which is, with MCA, `statistically associative'.
   \item MCA approach has been the basis of numereous promising works, such as CADNA\cite{graillat2011stochastic} and Verificarlo\cite{denis:hal-01192668}.
 \end{itemize}
-\subsection{Rounding methods and gradient methods}
+\subsubsection{Rounding methods}
 \begin{itemize}
   \item As seen earlier, when a real value isn't exactly representable as a floating point number, it is necessary to round it in order to store it in the computer's memory. 
   \item IEE754-1985 norm is a standard for floating-point arithmetic which adresses many problems found in previous implementations. It defines formats, operations and rounding rules in order to make the implementations more reliable and portable. The IEEE-754 norm suggest four rounding modes\cite{zuras2008ieee} :
@@ -98,11 +105,19 @@ We also experiment its properties during stochastic gradient descent method, in 
     \item {\ttfamily round\_random\_nearness} rounding method. In this case, the probability of rounding is related to the proximity of the corresponding floating point value. This is the rounding mode that give us the most promising results in our studied case. %TODO : find an example
   \end{itemize} % Stochastic rounding \emph{TODO explain its properties} %TODO explain the stochastic rounding properties
  % \\
-  \item We propose to apply this rounding mode to a specific iterative process : the conjuguate gradient method\footnote{A good introduction to this method can be found in the great related Shewchuk paper\cite{shewchuk1994introduction}.}. The goal of the algorithm is to solve particular systems of linear equations (with a symmetric and positive-definite associated matrix). Are we're about to see, its convergence is particularly sensitive to precision in floating point computations; hence also sensitive to the rounding mode used. %\emph{explain how it works and what it is used for. Plus why we're testing with it (because of the precision sensibility of the process}
+ \end{itemize}
+\subsection{Gradient descent methods}
+\begin{itemize}
+  \item We propose to apply this rounding mode to a specific iterative process : the conjuguate gradient method\footnote{A good introduction to this method can be found in the great related Shewchuk paper\cite{shewchuk1994introduction}.}. 
+  \item The goal of the algorithm is to solve particular systems of linear equations (with a symmetric and positive-definite associated matrix).
+  \item The conjuguate gradient method aim at solving linear equations systems, where the matrix is symmetric and positive defined. It iteratively minimize the function 
+  \[ f : x \mapsto \frac{1}{2}\left(Ax,x\right)-\left(b,x\right) \] % TODO find a reference
+  \item As we're about to see, its convergence is particularly sensitive to precision in floating point computations; hence also sensitive to the rounding mode used. % TODO find sources about this 
+  %\emph{explain how it works and what it is used for. Plus why we're testing with it (because of the precision sensibility of the process}
 \end{itemize}
 \subsection{Deep Neural Networks, Learning Methods}
 \begin{itemize}
-   \item Deep Learning appear to benefit from a rise of interest, and many stunning industrial applications has emerged (especially from Google with DeepMind or Waymo\footnote{ref needed}).
+   \item Deep Learning appear to benefit from a rise of interest, and many stunning industrial applications has emerged (especially from Google with DeepMind or Waymo\footnote{\emph{ref needed}}).
    \item Deep Neural Networks use different learning methods during inference phase; one of them is gradient descent method.
    \item In this context, studying the sensitivity of this method can give insightful perspectives. % TODO tellmemore
    \item Other works can give a good insight of the progress of this subject\cite{Gupta2015}\cite{Courbariaux2014}.
