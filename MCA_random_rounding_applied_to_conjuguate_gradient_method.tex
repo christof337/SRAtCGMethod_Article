@@ -5,6 +5,7 @@
 \usepackage{lmodern}
 \usepackage[english]{babel}  % Change hyphenation rules
 \usepackage{authblk}
+\usepackage{ragged2e}
 
 \usepackage[
     sorting=none]{biblatex}
@@ -31,7 +32,7 @@
 
 \begin{document}
 \title{%A quick overview on Floating Point and Monte Carlo arithmetics litterature -\\
-Study of random rounding scheme applied to Deep Neural Networks}
+Study of random rounding scheme applied to gradient descent method and Deep Neural Networks}
 \author[1]{Christophe Pont}
 \author[1]{David Defour}
 \author[2]{Bijan Mohammadi}
@@ -45,15 +46,17 @@ bijan.mohammadi@umontpellier.fr}
 
 \maketitle{} % Generates title
 % FIXME passer à un anglais plus "simple" et épuré
-\begin{abstract}
-In this paper, we propose to explore the vast literature adressing the concerns raised by floating point arithmetic since the late XX\textsuperscript{th} century. We also introduce the reader to Monte Carlo Arithmetic (MCA)\cite{Parker1997}, a promising extension of floating point arithmetic, which exploit randomness in floating point computations in order to analyze and estimate the quality of numerical results.\\
-Lastly, we extend this work in applying the {\ttfamily round\_random\_nearness} rounding method,
- giving an insightful trail on its use and performance on various gradient descent methods such as Krylov's conjugate gradient methods. 
-We also experiment its properties during stochastic gradient descent method, in the context of Deep Neural Network (DNN) training.
-%\begin{center}
-%This document aim to sum up my work during my thesis \emph{Improving trust in coastal erosion numerical simulations} and to keep track of my progress.
-%\end{center}
-\end{abstract}
+\begin{sloppypar} \hspace{0pt} \\
+  \begin{abstract}
+    In this paper, we propose to explore the vast literature adressing the concerns raised by floating point arithmetic computations. We also introduce the reader to Monte Carlo Arithmetic (MCA)\cite{Parker1997}, a promising extension of floating point arithmetic. MCA exploit randomness in floating point computations in order to analyze and estimate the quality of numerical results.\\
+    \indent Lastly, we extend this work in applying the {\ttfamily round\_random\_nearness} rounding method,
+     giving an insightful trail on its use and performance on various gradient descent methods such as Krylov's conjugate gradient methods. 
+    We also experiment its properties during stochastic gradient descent method, in the context of Deep Neural Network (DNN) training.
+    %\begin{center}
+    %This document aim to sum up my work during my thesis \emph{Improving trust in coastal erosion numerical simulations} and to keep track of my progress.
+    %\end{center}
+  \end{abstract}
+\end{sloppypar}
 
 %\newpage
 \tableofcontents{} % Generates table of contents from sections
@@ -61,11 +64,14 @@ We also experiment its properties during stochastic gradient descent method, in 
 
 \section{Introduction}
 %TODO Intro - Expliquer pourquoi on fait ça
-\begin{itemize}
-  \item In order to fit real numbers into a finite number of bits, it is necessary to \emph{round} them. As one may already know though, this rounding can cause a loss of information, through loss of significant digits. Plus, each floating-point operation is followed by a rounding at the current precision, meaning potentially loosing information again. These undesired side-effects are called \emph{roundoff errors}\cite{kaneko1973local}. Numerical analysis aim at estimate this kind of errors in computations\cite{Hazewinkel1994}. As the number of operation grows, the cumulated errors eventually get worse; hence the issue of numerical reliability in large simulations.
-  \item Among all the error sources, we propose to focus on roundoff errors, and more specifically to dig into the different rounding modes and their impact on the computations precision.
+%\par
+\begin{sloppypar} \hspace{0pt} \\
+\indent In order to fit real numbers into a finite number of bits, it is necessary to \emph{round} them. As one may already know though, this rounding can cause a loss of information, through loss of significant digits. Plus, each floating-point operation is followed by a rounding at the current precision, meaning potentially loosing information again. These undesired side-effects are called \emph{roundoff errors}\cite{kaneko1973local}. Numerical analysis aim at estimate this kind of errors in computations\cite{Hazewinkel1994}. As the number of operation grows, the cumulated errors eventually get worse; hence the issue of numerical reliability in large simulations. \\
+\indent Among the various error sources, we propose to focus on roundoff errors, and more specifically to dig into the different rounding modes and their impact on the computations accuracy.\\
 %   \\\emph{Briefly explain how floating point arithmetic can cause precision loss, and loss in reliability in the models and so fourth ==> reason of this paper}
-  \item We study a rounding mode potentially able to \emph{balance} the precision loss or floating point computations, and displaying interesting properties: the \emph{stochastic rounding mode}. Parker\cite{Parker1997} previously called it the {\ttfamily round\_random\_nearness} rounding method. It rely on Monte Carlo Arithmetic to introduce randomness in roundings. %% Thus, the rounding method have zero expected error.
+\indent We study a rounding mode potentially able to \emph{balance} the precision loss of floating point computations, and displaying interesting properties: the \emph{stochastic rounding mode}. Parker previously called it the {\ttfamily round\_random\_nearness}\cite{Parker1997} rounding method. It rely on Monte Carlo Arithmetic to introduce randomness in roundings. %% Thus, the rounding method have zero expected error.
+\end{sloppypar}
+\begin{itemize}
   \item We propose to explain it and apply it to precision dependent contexts, and more precisely during gradient descent methods, particularly because they are vastly used during Deep Learning processes. Indeed, Deep Learning has seen a rise of interest since the applications of Deep Neural Networks (DNN). One of the learning method used is gradient descent method, thus it seems reasonnable to apply our findings to this field, as we'll see in the last part. %\emph{TODO : explain why deep learning is important (and therefore the value of this paper)?} % TODO describe how the field is important
   \item We expect to see the minimum precision required to converge increase as we use the stochastic rounding mode, hence having a reduced precision requirement for some memory expensive iterative process. % change it to "we prove that ..." when we have the results
 \end{itemize}
