@@ -1,0 +1,16 @@
+# Log files
+*.log
+
+# Various LaTeX build files
+*.bcf
+*.blg
+*.fgb_latexmk
+*.fls
+*.run.xml
+*.synctex.gz
+*.tex~
+*.toc
+*.bbl
+*.aux
+*.fdb_latexmk
+Bibliography/*.bak
