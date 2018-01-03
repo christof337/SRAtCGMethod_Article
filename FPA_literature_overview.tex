@@ -1,0 +1,98 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath} % Advanced math typesetting
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % Unicode support (Umlauts etc.)
+\usepackage{lmodern}
+\usepackage[english]{babel}  % Change hyphenation rules
+
+\usepackage[
+    sorting=none]{biblatex}
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+  {\iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \bibopenbracket\usebibmacro{cite}\bibclosebracket}
+  {\supercitedelim}
+  {}
+  
+  
+%\usepackage[backend=biber,style=verbose-trad2]{biblatex} % Use biblatex package
+\addbibresource{Bibliography/ACSEL_bibliography_1.bib}
+%\bibliography{Bibliography/ACSEL_bibliography_1.bib} % The name of the .bib file (name without .bib)
+\let\cite=\supercite
+
+% Main document
+% ---
+
+\begin{document}
+\title{A quick overview on Floating Point and Monte Carlo arithmetics litterature -\\
+Study of random rounding scheme applied to Deep Neural Networks}
+\author{Christophe Pont}
+\date{\today{}} % You can remove \today{} and type a date manually
+
+\maketitle{} % Generates title
+
+\begin{abstract}
+Numereous research fields eventually come up with mathematical models, corresponding to a given physical reality. Most of these are too hard to handle \emph{by hand} for decades. In this context, numerical simulations offered an essential tool to handle these complex schemes. However, in order to cope with evident hardware limitations, the \emph{computer arithmetic}, meaning the way computers handle mathematical operations is distinct of our \emph{elementary}\footnote{find a more accurate term} arithmetic. In fact, it consist in a whole very standardised set of rules, format and operations : floating point arithmetic. But as one may have already experienced in sometimes even the simplest cases ($0.1+0.9$), the use of this arithmetic always comes with a price. Numerical precision and therefore the very reliability of simulation results are the keystones in this everlasting struggle.\\
+In this paper, we propose to explore the vast literature adressing these concerns since the late 
+XX$^{th}$ century, 
+and we introduce the reader to Monte Carlo Arithmetic (MCA)\cite{parker1997monte}, 
+a promising extension of floating point arithmetic, which exploit randomness in floating point computations in order to analyze and estimate quality of numerical results.\\
+Lastly, we extend this work in applying the {\ttfamily round\_random\_nearness} rounding method,
+ giving an insightful trail on its use and performance on various gradient descent methods such as Krylov's conjugate gradient methods. 
+We also experiment its properties during stochastic gradient method, in the context of Deep Neural Network (DNN) training, for image classification.\\
+\\
+\begin{center}
+This document aim to sum up my work during my thesis \emph{Improving trust in coastal erosion numerical simulations} and to keep track of my progress.
+\end{center}
+\end{abstract}
+
+\newpage
+\tableofcontents{} % Generates table of contents from sections
+\newpage
+
+\section{State of the art}
+\emph{Reference : Goldberg\cite{Goldberg1991} work.\\
+We also couldn't not steeped in MCA \cite{parker1997monte} and Verificarlo\cite{denis:hal-01192668}, which were the initial motivation of this study.\\
+We can also cite Cadna\cite{graillat2011stochastic}.}
+
+\newpage
+\section{Monte Carlo Arithmetic and stochastic rounding}
+\subsection{Gradient descent methods}
+Conjuguate gradient method\cite{shewchuk1994introduction}.\\
+\emph{Present the context of the method, why we chose it, and which properties interested us.\\
+Also introduce the `matrice\_grad` program.}
+
+\subsection{Sensibility to rounding mode changes}
+\subsubsection{Stochastic rounding}
+\emph{Our implementation of stochastic rounding : mathematical definition, proof, and benchmarks.\\}
+\subsubsection{Experimenting sensibility of rounding mode changes}
+\emph{Experimentations ; method.\\
+Varying the rounding mode : results.}
+
+\subsection{Other experimented sensibilities}
+\emph{
+Experiments method : changing 
+\begin{itemize}
+  \item matrix size,
+  \item matrix type,
+  \item number of iterations,
+  \item and floating point numbers precision
+\end{itemize}
+Results.}
+
+\subsection{Random rounding in stochastic gradient method - Efficiency on Deep Neural Networks}
+Extending Gupta\&Al\cite{Gupta2015} and Courbariaux\cite{Courbariaux2014} works.
+
+\newpage
+\section{Conclusion and future works}
+\emph{Cite other initiatives, such as Precimonious\cite{Rubio-Gonzalez2013}.}
+
+\newpage
+\printbibliography
+
+\end{document}

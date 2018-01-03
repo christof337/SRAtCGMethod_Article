@@ -1,0 +1,275 @@
+% Encoding: UTF-8
+
+
+@InProceedings{bousquet2008tradeoffs,
+  Title                    = {The tradeoffs of large scale learning},
+  Author                   = {Bousquet, Olivier and Bottou, L{\'e}on},
+  Booktitle                = {Advances in neural information processing systems},
+  Year                     = {2008},
+  Pages                    = {161--168},
+
+  File                     = {:bousquet2008tradeoffs.pdf:PDF},
+  Review                   = {hard}
+}
+
+@Article{Courbariaux2014,
+  Title                    = {Training deep neural networks with low precision multiplications},
+  Author                   = {Matthieu Courbariaux and Yoshua Bengio and Jean-Pierre David},
+  Journal                  = {arXiv preprint arXiv:1412.7024},
+  Year                     = {2014},
+  Abstract                 = {Multipliers are the most space and power-hungry arithmetic operators of the digital implementation of deep neural networks. We train a set of state-of-the-art neural networks (Maxout networks) on three benchmark datasets: MNIST, CIFAR-10 and SVHN. They are trained with three distinct formats: floating point, fixed point and dynamic fixed point. For each of those datasets and for each of those formats, we assess the impact of the precision of the multiplications on the final error after training. We find that very low precision is sufficient not just for running trained networks but also for training them. For example, it is possible to train Maxout networks with 10 bits multiplications.},
+  Date                     = {2014-12-22},
+  Eprint                   = {1412.7024v5},
+  Eprintclass              = {cs.LG},
+  Eprinttype               = {arXiv},
+  File                     = {online:http\://arxiv.org/pdf/1412.7024v5:PDF},
+  Keywords                 = {cs.LG, cs.CV, cs.NE}
+}
+
+@Unpublished{denis:hal-01192668,
+  Title                    = {{Verificarlo: checking floating point accuracy through Monte Carlo Arithmetic}},
+  Author                   = {Denis, Christophe and de Oliveira Castro, Pablo and Petit, Eric},
+  Note                     = {working paper or preprint},
+
+  Month                    = Sep,
+  Year                     = {2015},
+
+  File                     = {:denis_hal-01192668 - Verificarlo_ checking floating point accuracy through Monte Carlo Arithmetic.pdf:PDF;verificarlo-preprint.pdf:https\://hal.archives-ouvertes.fr/hal-01192668/file/verificarlo-preprint.pdf:PDF},
+  Hal_id                   = {hal-01192668},
+  Hal_version              = {v3},
+  Keywords                 = {floating point arithmetic ; compilers ; numerical analysis ; Monte Carlo arithmetic},
+  Url                      = {https://hal.archives-ouvertes.fr/hal-01192668}
+}
+
+@Article{Goldberg1991,
+  Title                    = {What Every Computer Scientist Should Know About Floating-Point Arithmetic},
+  Author                   = {David Goldberg},
+  Journal                  = {{ACM Computing Surveys}},
+  Year                     = {1991},
+
+  Month                    = mar,
+  Number                   = {1},
+  Pages                    = {5--48},
+  Volume                   = {23},
+
+  Abstract                 = {Floating-point arithmetic is considered an esoteric
+ subject by many peopl. This is rather surprising,
+ because floating-point is ubiquitous in computer
+ systems: Almost every language has a floating-point
+ datatype; computers from PCs to supercomputers have
+ floating-point accelarators; most compilers will be
+ called upon to compile floating-point alogrothms from
+ time to time; and virtually every operating system must
+ respond to floating-point exceptions such as overflow.
+ This paper presents a tutorial on the aspects of
+ floating-point that have a direct impact on designers
+ of computer systems. It begins with background on
+ floating-point represtentation and rounding error,
+ continues with a discussion of the IEEE floating-point
+ standard, and concludes with examples of how computer
+ system builders can better support floating point},
+  Added-by                 = {aso},
+  Doi                      = {10.1145/103162.103163},
+  File                     = {:Goldberg1991 - What Every Computer Scientist Should Know About Floating-Point Arithmetic.pdf:PDF},
+  ISSN                     = {0360-0300},
+  Keywords                 = {Algorithms, Design, Languages, denormalized number, exception, floating-point, floating-point standard, gradual underflow, guard digit, NaN, overflow, relative error, rounding error, rounding mode, ulp, underflow},
+  Url                      = {http://www.lsi.upc.edu/~robert/teaching/master/material/p5-goldberg.pdf}
+}
+
+@InProceedings{Gupta2015,
+  Title                    = {Deep learning with limited numerical precision},
+  Author                   = {Gupta, Suyog and Agrawal, Ankur and Gopalakrishnan, Kailash and Narayanan, Pritish},
+  Booktitle                = {Proceedings of the 32nd International Conference on Machine Learning (ICML-15)},
+  Year                     = {2015},
+  Pages                    = {1737--1746},
+  File                     = {:Gupta2015 - Deep learning with limited numerical precision.pdf:PDF},
+  Keywords                 = {rank4},
+  Review                   = {# Objectif
+Leur objectif ici est de travailler sur des réseaux de neurones avec une précision limitée ; en l'occurence, avec une arithmétique à virgule fixe.
+# Motivations
+Virgule fixe car consomme moins/est plus rapide/plus léger en mémoire...
+# Moyens
+Jeux de données MNIST et CIFAR10 ( petit jeu de donnée )
+# Résultats
+Leurs résultats semblent montrer que des nombres représentes avec **16 bits** de largeur seulement suffisent (en utilisant un *arrondi stochastique*).
+Ils exploitent la tolérance au bruit des réseaux de neurones.
+** Ils arrivent à des résultats similaires à un entrainement fait par de l'arithmétique flottante à 32 bits avec de la fixed point à faible précision *grace au stochastic rounding*!**
+# A creuser
+* Ils auraient déterminé que le mode d'arrondi jouait un rôle crucial durant l'entraînement ^[a creuser]^.
+* Note : Des erreurs de computations peuvent elles vraiment être interchangeables avec du bruit? (quid de la non linéarité?)
+* Extrapoler leur figure 1 avec des réseaux de neurones plus badass / grands
+# Notes
+* L'efficacité de méthodes d'apprentissage profond dépend de la capacité du hardware sous-jacent à exécuter un entraînement supervisé rapide de réseaux complexes en utilisant de grandes quantités de données labellisées.
+* Les réseaux de neurones ont une résilience à l'erreur assez forte ; la précision n'est pas si importante (on en rajoute même volontairement de manière non linéaire avec du bruit). La plupart des hardware utilisent une forte précision, là où ici ça serait pas nécessaire ^[référence nécessaire]^
+* Le stochastic rounding semble indispensable, car en "round to nearest" ils divergent presque à chaque fois avec une faible précision ; nécessité donc d'utiliser le stochastique rounding (note pour mon article : faire une partie sur le choix du mode d'arrondi, et une autre sur le choix de la précision ; avoir un diagramme mettant tout cela en parallèle (4D, séries de diagrammes en 3D) serait top)},
+  Url                      = {http://proceedings.mlr.press/v37/gupta15.pdf}
+}
+
+@Article{TapenadeRef13,
+  Title                    = {The {T}apenade {A}utomatic {D}ifferentiation tool: {P}rinciples, {M}odel, and {S}pecification},
+  Author                   = {Hasco{\"e}t, L. and Pascual, V.},
+  Journal                  = {{ACM} {T}ransactions {O}n {M}athematical {S}oftware},
+  Year                     = {2013},
+  Number                   = {3},
+  Volume                   = {39},
+
+  Comment                  = {http://www-sop.inria.fr/tropics/tapenade.html},
+  File                     = {:TapenadeRef13 - The Tapenade Automatic Differentiation tool_ Principles, Model, and Specification.pdf:PDF},
+  Url                      = {http://dx.doi.org/10.1145/2450153.2450158}
+}
+
+@Article{holi1993finite,
+  Title                    = {Finite precision error analysis of neural network hardware implementations},
+  Author                   = {Holi, Jordan L and Hwang, J-N},
+  Journal                  = {IEEE Transactions on Computers},
+  Year                     = {1993},
+  Number                   = {3},
+  Pages                    = {281--290},
+  Volume                   = {42},
+
+  __markedentry            = {[kito:1]},
+  File                     = {:autres/holi1993.pdf:PDF},
+  Publisher                = {IEEE},
+  Review                   = {Ils analysent l'impact de la précision (fixed point) sur le réseau de neurone :o
+Demander l'avis de David}
+}
+
+@PhdThesis{HOUEDANOU2015,
+  Title                    = {{A posteriori error estimates of some finites elements methods for the Stokes-Darcy coupled problem : isotropic and anisotropic discretizations}},
+  Author                   = {HOUEDANOU, Wilfrid Koffi},
+  School                   = {{Institut de Math{\'e}matiques et de Sciences Physiques (IMSP)}},
+  Year                     = {2015},
+  Month                    = Dec,
+  Type                     = {Theses},
+
+  File                     = {:HOUEDANOU2015 - A posteriori error estimates of some finites elements methods for the Stokes-Darcy coupled problem _ isotropic and anisotropic discretizations.pdf:PDF;These.pdf:https\://hal.archives-ouvertes.fr/tel-01373344/file/These.pdf:PDF},
+  Hal_id                   = {tel-01373344},
+  Hal_version              = {v1},
+  Keywords                 = {Coupled problem Stokes-Darcy ; A posteriori error estimates ; Finites elements Method ; Probl{\`e}me de transmission Stokes-Darcy ; Analyse d'erreur a-posteriori ; M{\'e}thode d'{\'e}l{\'e}ments finis.},
+  Url                      = {https://hal.archives-ouvertes.fr/tel-01373344}
+}
+
+@InCollection{Hubara2016,
+  Title                    = {Binarized Neural Networks},
+  Author                   = {Hubara, Itay and Courbariaux, Matthieu and Soudry, Daniel and El-Yaniv, Ran and Bengio, Yoshua},
+  Booktitle                = {Advances in Neural Information Processing Systems 29},
+  Publisher                = {Curran Associates, Inc.},
+  Year                     = {2016},
+  Editor                   = {D. D. Lee and M. Sugiyama and U. V. Luxburg and I. Guyon and R. Garnett},
+  Pages                    = {4107--4115},
+  File                     = {:Hubara2016 - Binarized Neural Networks.pdf:PDF},
+  Url                      = {http://papers.nips.cc/paper/6573-binarized-neural-networks.pdf}
+}
+
+@Article{Kahl2017,
+  Title                    = {The deflated conjugate gradient method: Convergence, perturbation and accuracy},
+  Author                   = {K. Kahl and H. Rittich},
+  Journal                  = {Linear Algebra and its Applications},
+  Year                     = {2017},
+  Number                   = {Supplement C},
+  Pages                    = {111 - 129},
+  Volume                   = {515},
+
+  Abstract                 = {Deflation techniques for Krylov subspace methods have seen a lot of attention in recent years. They provide means to improve the convergence speed of these methods by enriching the Krylov subspace with a deflation subspace. The most common approach for the construction of deflation subspaces is to use (approximate) eigenvectors, but also more general subspaces are applicable.
+
+In this paper we discuss two results concerning the accuracy requirements within the deflated CG method. First we show that the effective condition number which bounds the convergence rate of the deflated conjugate gradient method depends asymptotically linearly on the size of the perturbations in the deflation subspace. Second, we discuss the accuracy required in calculating the deflating projection. This is crucial concerning the overall convergence of the method, and also allows to save some computational work.
+
+To show these results, we use the fact that as a projection approach deflation has many similarities to multigrid methods. In particular, recent results relate the spectra of the deflated matrix to the spectra of the error propagator of twogrid methods. In the spirit of these results we show that the effective condition number can be bounded by the constant of a weak approximation property.},
+  Doi                      = {https://doi.org/10.1016/j.laa.2016.10.027},
+  File                     = {:16 - The deflated conjugate gradient method \: convergence, perturbation and accuracy.pdf:PDF},
+  ISSN                     = {0024-3795},
+  Keywords                 = {Conjugate gradients, Deflation, Multigrid, Convergence, Perturbation},
+  Owner                    = {kito},
+  Timestamp                = {2017.11.24},
+  Url                      = {http://www.sciencedirect.com/science/article/pii/S0024379516305122}
+}
+
+@Article{Koester2017,
+  Title                    = {Flexpoint: An Adaptive Numerical Format for Efficient Training of Deep Neural Networks},
+  Author                   = {Urs Köster and Tristan Webb and Xin Wang and Marcel Nassar and Arjun Bansal and William Constable and Oguz Elibol and Stewart Hall and Luke Hornof and Amir Khosrowshahi and Carey Kloss and Ruby Pai and Naveen Rao},
+  Year                     = {2017},
+
+  Month                    = nov,
+
+  __markedentry            = {[kito:6]},
+  Abstract                 = {Deep neural networks are commonly developed and trained in 32-bit floating point format. Significant gains in performance and energy efficiency could be realized by training and inference in numerical formats optimized for deep learning. Despite advances in limited precision inference in recent years, training of neural networks in low bit-width remains a challenging problem. Here we present the Flexpoint data format, aiming at a complete replacement of 32-bit floating point format training and inference, designed to support modern deep network topologies without modifications. Flexpoint tensors have a shared exponent that is dynamically adjusted to minimize overflows and maximize available dynamic range. We validate Flexpoint by training AlexNet, a deep residual network and a generative adversarial network, using a simulator implemented with the neon deep learning framework. We demonstrate that 16-bit Flexpoint closely matches 32-bit floating point in training all three models, without any need for tuning of model hyperparameters. Our results suggest Flexpoint as a promising numerical format for future hardware for training and inference.},
+  Comments                 = {14 pages, 5 figures, accepted in Neural Information Processing Systems 2017},
+  Eprint                   = {1711.02213},
+  File                     = {:Koester2017.pdf:PDF},
+  Oai2identifier           = {1711.02213},
+  Owner                    = {kito},
+  Review                   = {Entrainement de réseaux de neurones avec un nouveau format qui se veut plus efficace (où 16 bits semblent suffire).
+A creuser},
+  Timestamp                = {2017.11.24},
+  Url                      = {https://arxiv.org/abs/1711.02213}
+}
+
+@InProceedings{Rubio-Gonzalez2013,
+  Title                    = {Precimonious},
+  Author                   = {Cindy Rubio-Gonz{\'{a}}lez and Cuong Nguyen and Hong Diep Nguyen and James Demmel and William Kahan and Koushik Sen and David H. Bailey and Costin Iancu and David Hough},
+  Booktitle                = {Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis on - {SC} {\textquotesingle}13},
+  Year                     = {2013},
+  Publisher                = {{ACM} Press},
+
+  Doi                      = {10.1145/2503210.2503296},
+  File                     = {:Rubio-Gonzalez2013 - Precimonious.pdf:PDF}
+}
+
+@Article{Springenberg2014,
+  Title                    = {Striving for Simplicity: The All Convolutional Net},
+  Author                   = {Jost Tobias Springenberg and Alexey Dosovitskiy and Thomas Brox and Martin Riedmiller},
+  Journal                  = {arXiv preprint arXiv:1412.6806},
+  Year                     = {2014},
+
+  Abstract                 = {Most modern convolutional neural networks (CNNs) used for object recognition are built using the same principles: Alternating convolution and max-pooling layers followed by a small number of fully connected layers. We re-evaluate the state of the art for object recognition from small images with convolutional networks, questioning the necessity of different components in the pipeline. We find that max-pooling can simply be replaced by a convolutional layer with increased stride without loss in accuracy on several image recognition benchmarks. Following this finding -- and building on other recent work for finding simple network structures -- we propose a new architecture that consists solely of convolutional layers and yields competitive or state of the art performance on several object recognition datasets (CIFAR-10, CIFAR-100, ImageNet). To analyze the network we introduce a new variant of the "deconvolution approach" for visualizing features learned by CNNs, which can be applied to a broader range of network structures than existing approaches.},
+  Date                     = {2014-12-21},
+  Eprint                   = {1412.6806v3},
+  Eprintclass              = {cs.LG},
+  Eprinttype               = {arXiv},
+  File                     = {online:http\://arxiv.org/pdf/1412.6806v3:PDF},
+  Keywords                 = {cs.LG, cs.CV, cs.NE},
+  Review                   = {# Motivations
+La plupart des CNN utilisés pour la reconnaissance d'objets sont constitués de la même façon : alterner des couches de convolutions et de max-pooling, suivis d'un petit nombre de couches entièrement connectées.
+# Objectifs
+S'interroger sur l'utilité de cette pipeline.
+# Résultats
+* Le pattern *max-pooling* peut être remplacé par une couche convolutionnelle avec un pas plus grand sans perte de précision sur plusieurs benchmarks de reconnaissance d'images. ( efficacité proche ou state-of-the-art).
+* Ils proposent une nouvelle architecture constituée uniquement de couche convolutives.
+* Ils ont même un moyen d'analyser et de visualiser le réseau, basé sur une variante de "l'approche déconvolutive" ^[référence nécessaire]^.
+* Inclure des opérations de (max-)pooling explicites n'améliore *pas toujours* la performance du CNN.
+#Notes
+Approche intéressante ; leur but est humblement de déterminer ce dont on a besoin *au minimum*, et de sortir un peu des sentiers battus usés et réusés de conv conv max pool conv conv max pool etc.
+Non directement corrélé à mon sujet.}
+}
+
+@Book{parker1997monte,
+  title     = {Monte Carlo Arithmetic: exploiting randomness in floating-point arithmetic},
+  publisher = {University of California (Los Angeles). Computer Science Department},
+  year      = {1997},
+  author    = {Parker, Douglass Stott},
+  file      = {:parker1997monte - Monte Carlo Arithmetic_ exploiting randomness in floating-point arithmetic.pdf:PDF},
+  url       = {http://web.cs.ucla.edu/~stott/mca/},
+}
+
+@Article{graillat2011stochastic,
+  author    = {Graillat, Stef and J{\'e}z{\'e}quel, Fabienne and Wang, Shiyue and Zhu, Yuxiang},
+  title     = {Stochastic arithmetic in multiprecision},
+  journal   = {Mathematics in Computer Science},
+  year      = {2011},
+  volume    = {5},
+  number    = {4},
+  pages     = {359--375},
+  doi       = {10.1007/s11786-011-0103-4},
+  file      = {:graillat2011stochastic - Stochastic arithmetic in multiprecision.pdf:PDF},
+  publisher = {Springer},
+  review    = {CADNA with MPFR},
+}
+
+@Misc{shewchuk1994introduction,
+  author    = {Shewchuk, Jonathan Richard and others},
+  title     = {An introduction to the conjugate gradient method without the agonizing pain},
+  year      = {1994},
+  publisher = {Carnegie-Mellon University. Department of Computer Science},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
