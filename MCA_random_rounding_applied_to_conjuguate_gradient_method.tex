@@ -6,6 +6,7 @@
 \usepackage[english]{babel}  % Change hyphenation rules
 \usepackage{authblk}
 \usepackage{ragged2e}
+\usepackage{graphicx}
 
 \usepackage[
     sorting=none]{biblatex}
@@ -141,7 +142,25 @@ bijan.mohammadi@umontpellier.fr}
 \section{Results}
 \subsection{Sensibility to rounding mode changes}
 \begin{itemize}
-  \item \emph{Experimenting sensibility of rounding mode changes + results }
+  \item We applied this methodology to a conjuguate gradient descent method, by changing the precision used for each run, from 2 bits to 100. We then gathered the last value of the gradient after 60 iterations, and did it for each computed precision. 
+  \item Below you'll see a plot showing the difference between the stochastic rounding and classic RNDN rounding. For now though, it looks like for lower precisions (<20 bits), both stochastic and RNDN diverge, and stochastic rounding seem to diverge a little bit more. They tend to converge from a precision of 25 bits, apparently in the same way. \emph{more tests will be made in order to test other data and to assert this result. Indeed, the randomness of our stochastic rounding is yet to be proven} % \emph{Experimenting sensibility of rounding mode changes + results }
+%     \begin{figure}
+% %     \begin{center}
+%       \includegraphics[scale=0.26]{illustrations/stochastic.png}
+%       \caption{Gradient descent with stochastic rounding}
+%       \label{fig:}
+% %     \end{center}
+%   \end{figure}
+% % 
+\end{itemize}
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[width=1.1\textwidth,height=250pt]{illustrations/simple_comparison.png}
+      \caption{First results}
+      \label{fig:}
+    \end{center}
+  \end{figure}
+  \begin{itemize}
   \item \emph{What is the impact of changing the rounding mode on \textbf{performance} and \textbf{reliability} (in what way this change implies a deviation on \textbf{convergence}) }
   \item \emph{resulting tables and charts of precision level for each configuration}
 \end{itemize}
