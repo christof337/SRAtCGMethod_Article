@@ -1,3 +1,6 @@
+%%% 26/04/2018
+%%% V1.3
+
 \documentclass[a4paper,11pt]{article}
 \usepackage{amsmath} % Advanced math typesetting
 \usepackage[T1]{fontenc}
@@ -114,14 +117,13 @@ bijan.mohammadi@umontpellier.fr}
  % \\
  \end{itemize}
 \subsection{Gradient descent methods}
-\begin{itemize}
-  \item We propose to apply this rounding mode to a specific iterative process : the conjuguate gradient method\footnote{A good introduction to this method can be found in the great related Shewchuk paper\cite{shewchuk1994introduction}.}. 
-  \item The goal of the algorithm is to solve particular systems of linear equations (with a symmetric and positive-definite associated matrix).
-  \item The conjuguate gradient method aim at solving linear equations systems, where the matrix is symmetric and positive defined. It iteratively minimize the function 
+	We propose to apply this rounding mode to a specific iterative process : the conjuguate gradient method\footnote{A good introduction to this method can be found in the great related Shewchuk paper\cite{shewchuk1994introduction}.}. 
+  %The goal of the algorithm is to solve particular systems of linear equations (with a symmetric and positive-definite associated matrix). 
+  The conjuguate gradient method aim at solving linear equations systems, where the matrix $A$ is symmetric and positive defined. It iteratively minimize the function $f$
   \[ f : x \mapsto \frac{1}{2}\left(Ax,x\right)-\left(b,x\right) \] % TODO find a reference
-  \item As we're about to see, its convergence is particularly sensitive to precision in floating point computations; hence also sensitive to the rounding mode used. % TODO find sources about this 
+  As we're about to see, its convergence is particularly sensitive to precision in floating point computations; hence also sensitive to the rounding mode used. % TODO find sources about this 
   %\emph{explain how it works and what it is used for. Plus why we're testing with it (because of the precision sensibility of the process}
-\end{itemize}
+
 \subsection{Deep Neural Networks, Learning Methods}
 \begin{itemize}
    \item Deep Learning appear to benefit from a rise of interest, and many stunning industrial applications has emerged (especially from Google with DeepMind or Waymo\footnote{\emph{ref needed}}).
